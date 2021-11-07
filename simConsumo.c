@@ -15,16 +15,16 @@ void simConsumo (){
 	setlocale(LC_ALL,"");
 	int esc, i;
 	float watt, tempo, consumo=0;
-	printf("\nEscolha o número de aparelhos que serão lançados..:");
+	printf("\nEscolha o nÃºmero de aparelhos que serÃ£o lanÃ§ados..:");
 	scanf("%d", &esc);
 	
-		for(i=1; i<=esc; i++)
+		for(i=0; i<esc; i++)
 		{	
-		printf("\nDigite a potencia em Watt do aparelho %d..:", i);
+		printf("\nDigite a potencia em Watt do aparelho %d..:", (i+1));
 		scanf("%f", &watt);
 		printf("\nDigite o tempo em horas estimado em que o aparelho fica ligado por dia..:");
 		scanf("%f", &tempo);
 		consumo = consumo + ((watt/1000)*(tempo)*30);
 		}
-	printf("\nO consumo estimado para o mês é..: %.2f KWh", consumo );
+	printf("\nO consumo estimado para o mÃªs Ã©..: %.2f KWh", consumo );
 }
