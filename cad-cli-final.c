@@ -64,15 +64,15 @@ int listarCliente(){
       int i;
       for(i=0;i<TAMANHO; i++){
       if(vetCliente[i].id != -1){
-      printf("\n***************************************");
-      printf("\nIdentificador..: %d", vetCliente[i].id);
-      printf("\nNome..: %s", vetCliente[i].nome);
-      printf("\nSobrenome..: %s", vetCliente[i].sobrenome);
-      printf("\nData Nasc..: %02d/%02d/%04d", vetCliente[i].dataNasc.dia,
-      vetCliente[i].dataNasc.mes, vetCliente[i].dataNasc.ano);
-      printf("\nTelefone..: %s", vetCliente[i].telefone);
-      printf("\nEmail..: %s", vetCliente[i].email);
-      printf("\nPontos..: %d", vetCliente[i].pontos);
+              printf("\n***************************************");
+              printf("\nIdentificador..: %d", vetCliente[i].id);
+              printf("\nNome..: %s", vetCliente[i].nome);
+              printf("\nSobrenome..: %s", vetCliente[i].sobrenome);
+              printf("\nData Nasc..: %02d/%02d/%04d", vetCliente[i].dataNasc.dia,
+              vetCliente[i].dataNasc.mes, vetCliente[i].dataNasc.ano);
+              printf("\nTelefone..: %s", vetCliente[i].telefone);
+              printf("\nEmail..: %s", vetCliente[i].email);
+              printf("\nPontos..: %d", vetCliente[i].pontos);
 
 }
 }
