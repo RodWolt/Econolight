@@ -14,7 +14,7 @@ int main (int argc, char *argv[])
 	printf("2- Adicionar produtos\n");
 	printf("3- Ver lista de clientes\n");
 	printf("4- Ver lista de produtos\n");
-	printf("\nEscolha a opção desejada: \n");
+	printf("\nEscolha a opÃ§Ã£o desejada: \n");
 	scanf("%d", &numero);
 	switch(numero)
 	{
