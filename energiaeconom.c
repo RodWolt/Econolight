@@ -18,12 +18,12 @@ float WEconomizado()
    	     setlocale(LC_ALL,"");
 	     float watts, wattsEconom, tempo, Econom=0, EconomY=0;
 	    
-		 printf("Qual é a sua estimativa de consumo? ");
+		 printf("Qual Ã© a sua estimativa de consumo? ");
 	     scanf("%f", &watts);
 	     printf("Quanto de consumo foi efetivado? ");
 	     scanf("%f", &wattsEconom);
 	     Econom = (watts - wattsEconom)*1000;
 	     EconomY = (watts - wattsEconom)/1000;
-		 printf("Você economizou..: %.2f Watts / %.2f Khw ", Econom , EconomY  );
+		 printf("VocÃª economizou..: %.2f Watts / %.2f Khw ", Econom , EconomY  );
 	     
    }
