@@ -14,7 +14,7 @@ struct data{
 };
 
  struct cliente{
-    int id; // -1 indica que a posiÃ§Ã£o do elemento no vetor estÃ¡ vazia
+    int id; // -1 indica que a posição do elemento no vetor está vazia
     char nome[20];
     char sobrenome[20];
     struct data dataNasc;
@@ -24,22 +24,13 @@ struct data{
 } vetCliente[TAMANHO];
 
 struct produto{
-      int id; // -1 indica que a posiÃ§Ã£o do elemento no vetor estÃ¡ vazia
+      int id; // -1 indica que a posição do elemento no vetor está vazia
       int codigo;
       char nome[20];
       int qtd;
       int valor;
 
 } vetProduto[TAMANHO];
-
-typedef struct{
-    struct produto info;
-    int quantidade;
-    float valorTotal;
-} Loja;
-
-
-Loja carrinho[TAMANHO];
 
 
 void IDcheckStrings();
@@ -51,20 +42,12 @@ int alterarCliente();
 int excluirCliente();
 int listarCliente();
 int buscarCliente();
-int listarProduto();
 int inicializarProduto();
 int menuAddProduto();
-float cadastroMeta();
-float WEconomizado(int numCliente);
 void clienteMenu();
 void verPontos(int numCliente);
 void menuAddCliente();
-void simConsumo ();
-void addProdCar();
-void showCarrSpotInfo(int numCarr);
-void showProdInfo(int numProd);
 UINT CPAGE_DEFAULT;
-float metaFinal, consumo;
 
 
 
@@ -78,15 +61,15 @@ int main(){
     //startUpClientes();    
 	inicializarCliente();
 	inicializarProduto();
-// ComeÃ§o do programa
+// Começo do programa
 
     while(1){
         system("cls");
-        printf("VocÃª Ã© o cliente ou o provedor?\n");
+        printf("Você é o cliente ou o provedor?\n");
         printf("1 - Cliente\n");
         printf("2 - Provedor\n");
         printf("0 - Sair do programa\n");
-        printf("OpÃ§Ã£o: ");
+        printf("Opção: ");
         fflush(stdin);
         scanf("%d", &typeProgram);
 
@@ -100,7 +83,7 @@ int main(){
             case 0:
 //                exit(0);
             default:
-                printf("Digite uma opÃ§Ã£o valida...\n");
+                printf("Digite uma opção valida...\n");
                 system("pause");
                 system("cls");
         }
@@ -118,7 +101,7 @@ void clienteMenu(){
         fflush(stdin);
         while(scanf("%d", &id) != 1 || id < 0){
             if(getchar() == 'e') return;
-            printf("\nA ID de cliente Ã© composta apenas de digitos positivos...\n\n");
+            printf("\nA ID de cliente é composta apenas de digitos positivos...\n\n");
             system("pause");
             IDcheckStrings();
             fflush(stdin);
@@ -127,7 +110,7 @@ void clienteMenu(){
             if(vetCliente[numCliente].id == id) break;
         
         if(vetCliente[numCliente].id != id){
-            printf("\nEste ID de cliente nÃ£o Ã© valido...\n\n");
+            printf("\nEste ID de cliente não é valido...\n\n");
             system("pause");
         }
     }while(vetCliente[numCliente].id != id);
@@ -136,15 +119,15 @@ void clienteMenu(){
         system("cls");
         printf("O que deseja fazer?\n");
         printf("1 - Ver Pontos\n");
-        printf("2 - SimulaÃ§Ã£o de consumo\n");
+        printf("2 - Estimativa de consumo\n");
         printf("3 - Informar meta energetica\n");
         printf("4 - Informar Watts economizados\n");
         printf("5 - Ver lista de produtos\n");
         printf("6 - Colocar ou Tirar produtos do carrinho\n");
         printf("7 - Ver Carrinho\n");
-        printf("9 - Voltar ao inÃ­cio\n");
+        printf("9 - Voltar ao início\n");
         printf("0 - Sair do programa\n");
-        printf("OpÃ§Ã£o: ");
+        printf("Opção: ");
         fflush(stdin);
         scanf("%d", &op);
 
@@ -153,19 +136,14 @@ void clienteMenu(){
                 verPontos(numCliente);
                 break;
             case 2:
-            	simConsumo();
                 break;
             case 3:
-            	cadastroMeta();
                 break;
             case 4:
-            	WEconomizado(numCliente);
                 break;
             case 5:
-            	listarProduto();
                 break;
             case 6:
-            	addProdCar();
                 break;
             case 7:
                 break;
@@ -175,7 +153,7 @@ void clienteMenu(){
                 SetConsoleOutputCP(CPAGE_DEFAULT);
                 exit(0);
             default:
-                printf("Digite uma opÃ§Ã£o valida...\n");
+                printf("Digite uma opção valida...\n");
                 system("pause");
                 system("cls");
         }
@@ -184,7 +162,7 @@ void clienteMenu(){
 
 void IDcheckStrings(){
     system("cls");
-    printf("Para voltar ao inÃ­cio digite 'e'\n\n");
+    printf("Para voltar ao início digite 'e'\n\n");
     printf("Sua ID de cliente : ");
 }
 
@@ -204,7 +182,7 @@ void menuProvedor()
 	printf("3- Ver lista de clientes\n");
 	printf("4- Ver lista de produtos\n");
 	printf("0- Voltar ao menu incial\n");
-	printf("\nEscolha a opÃ§Ã£o desejada: \n");
+	printf("\nEscolha a opção desejada: \n");
 	scanf("%d", &numero);
 	switch(numero)
 	{
@@ -248,15 +226,15 @@ int inicializarCliente()
     return resp;
 }
 int entradaCliente(int pos)
-{ // posiÃ§Ã£o livre para a inclusÃ£o
+{ // posição livre para a inclusão
       int resp = FALSO;
-      printf("\n**********InclusÃ£o de novo registro!********");
+      printf("\n**********Inclusão de novo registro!********");
       printf("\nIdentificador: ");
       fflush(stdin);
 	  scanf("%d", &vetCliente[pos].id);;
       printf("\nNome..:");
       fflush(stdin);
-	  scanf("%s", vetCliente[pos].nome); // nÃ£o vai poder ter espaÃ§o no nome
+	  scanf("%s", vetCliente[pos].nome); // não vai poder ter espaço no nome
       printf("\nSobrenome..:");
       fflush(stdin);
 	  scanf("%s", vetCliente[pos].sobrenome);
@@ -282,7 +260,7 @@ int incluirCliente()
     int i;
     int posicao=-1;
     	for(i=0;i<TAMANHO; i++)
-		{// verificar se tem espaÃ§o
+		{// verificar se tem espaço
 		    if(vetCliente[i].id==-1){
 		    posicao = i;
     break;
@@ -299,34 +277,34 @@ int incluirCliente()
 }
 
 void menuAddCliente() {
-    int continua = VERD; // VERD Ã© uma constante que possui o valor 1
+    int continua = VERD; // VERD é uma constante que possui o valor 1
     char opcao;
 // menu principal
 		do {
           printf("\n***************************************");
           printf("\nCliente");
-          printf("\ni - InclusÃ£o.");
-          printf("\na - AlteraÃ§Ã£o.");
-          printf("\ne - ExclusÃ£o.");
+          printf("\ni - Inclusão.");
+          printf("\na - Alteração.");
+          printf("\ne - Exclusão.");
           printf("\nl - Listar.");
           printf("\ns - Sair.");
-          printf("\nEscolha sua opÃ§Ã£o [i, a, e, l, s]:");
+          printf("\nEscolha sua opção [i, a, e, l, s]:");
           fflush(stdin);
 		  scanf("%c", &opcao);
 
 		switch(opcao){
        
            	case 'i' :
-           	case 'I' : printf("***** InclusÃ£o *****");
+           	case 'I' : printf("***** Inclusão *****");
            //incluirCliente();
                     if(incluirCliente()){
-                    printf("\nRegistro IncluÃ­do!");
+                    printf("\nRegistro Incluído!");
                     } else {
                     printf("\nERRO ao Incluir Cliente!");
                  }
            break;
            	case 'a' :
-           	case 'A' : printf("***** AlteraÃ§Ã£o *****");
+           	case 'A' : printf("***** Alteração *****");
                      if(alterarCliente()){
                      printf("\nRegistro Alterado!");
                      } else {
@@ -335,9 +313,9 @@ void menuAddCliente() {
            break;
 
           	case 'e' :
-          	case 'E' : printf("***** ExclusÃ£o *****");
+          	case 'E' : printf("***** Exclusão *****");
                    if(excluirCliente()){
-                   printf("\nRegistro ExcluÃ­do!");
+                   printf("\nRegistro Excluído!");
                    } else {
                    printf("\nERRO ao Excluir Cliente!");
                    }
@@ -353,14 +331,14 @@ void menuAddCliente() {
          break;
 
          	case 's' :
-         	case 'S' : printf("***** SaÃ­da do Programa *****");
+         	case 'S' : printf("***** Saída do Programa *****");
          continua = FALSO;
          break;
 
-         default: printf("\nOpÃ§Ã£o invÃ¡lida!!!");
+         default: printf("\nOpção inválida!!!");
 
  }
-fflush(stdin);// limpeza do buffer do teclado para nÃ£o pular leituras
+fflush(stdin);// limpeza do buffer do teclado para não pular leituras
 }while(continua);
 
 return;
@@ -371,10 +349,10 @@ int alterarCliente(){
        int pos=-1;
        char confirma;
        listarCliente();
-       printf("\n**************ALTERAÃ‡ÃƒO*********************");
-       printf("\nQual Ã© o identificador do Registro?");
+       printf("\n**************ALTERAÇÃO*********************");
+       printf("\nQual é o identificador do Registro?");
        scanf("%d", &pos);
-       fflush(stdin);// limpeza do buffer do teclado para nÃ£opular leituras
+       fflush(stdin);// limpeza do buffer do teclado para nãopular leituras
        if(buscarCliente(pos)){
        printf("\nDeseja Alterar este Registro [s/n]?");
        scanf("%c", &confirma);
@@ -392,12 +370,12 @@ int excluirCliente(){
      int pos=-1;
      char confirma;
      listarCliente();
-     printf("\n**************EXCLUSÃƒO*********************");
-     printf("\nQual Ã© o identificador do Registro?");
+     printf("\n**************EXCLUSÃO*********************");
+     printf("\nQual é o identificador do Registro?");
      scanf("%d", &pos);
-     fflush(stdin);// limpeza do buffer do teclado para nÃ£opular leituras
+     fflush(stdin);// limpeza do buffer do teclado para nãopular leituras
      if(buscarCliente(pos)){
-     printf("\nConfirma a EXCLUSÃƒO do Registro [s/n]?");
+     printf("\nConfirma a EXCLUSÃO do Registro [s/n]?");
      scanf("%c", &confirma);
      if(confirma=='s' || confirma == 'S'){
      vetCliente[pos].id = -1;
@@ -456,14 +434,14 @@ return resp;
 }
 
 //entradaProduto()
-   int entradaProduto(int pos){ // posiÃ§Ã£o livre para a inclusÃ£o
+   int entradaProduto(int pos){ // posição livre para a inclusão
    int resp = FALSO;
-       printf("\n**********InclusÃ£o de novo registro!********");
+       printf("\n**********Inclusão de novo registro!********");
        printf("\nIdentificador: %d", pos);
        vetProduto[pos].id = pos;
-       printf("\nCÃ³digo..:");
+       printf("\nCódigo..:");
        fflush(stdin);
-	   scanf("%d", &vetProduto[pos].codigo); // nÃ£o vai poder ter espaÃ§o no nome
+	   scanf("%d", &vetProduto[pos].codigo); // não vai poder ter espaço no nome
        printf("\nNome..:");
        fflush(stdin);
 	   scanf("%s", vetProduto[pos].nome);
@@ -485,7 +463,7 @@ int listarProduto(){
         if(vetProduto[i].id != -1){
                printf("\n***************************************");
                printf("\nIdentificador..: %d", vetProduto[i].id);
-               printf("\nCÃ³digo..: %d", vetProduto[i].codigo);
+               printf("\nCódigo..: %d", vetProduto[i].codigo);
                printf("\nNome..: %s", vetProduto[i].nome);
                printf("\nQuantidade..: %d", vetProduto[i].qtd);
                printf("\nValor..: %d", vetProduto[i].valor);
@@ -517,7 +495,7 @@ return resp;
      int resp = FALSO;
      int i;
      int posicao=-1;
-        for(i=0;i<TAMANHO; i++){// verificar se tem espaÃ§o
+        for(i=0;i<TAMANHO; i++){// verificar se tem espaço
             if(vetProduto[i].id==-1){
             posicao = i;
             break;
@@ -539,8 +517,8 @@ int alterarProduto(){
     int pos=-1;
     char confirma;
        listarProduto();
-       printf("\n**************ALTERAÃ‡ÃƒO*********************");
-       printf("\nQual Ã© o identificador do Registro?");
+       printf("\n**************ALTERAÇÃO*********************");
+       printf("\nQual é o identificador do Registro?");
        fflush(stdin);
 	   scanf("%d", &pos);
        	    if(buscarProduto(pos)){
@@ -561,12 +539,12 @@ return resp;
 	    int pos=-1;
 	    char confirma;
           listarProduto();
-               printf("\n**************EXCLUSÃƒO*********************");
-               printf("\nQual Ã© o identificador do Registro?");
+               printf("\n**************EXCLUSÃO*********************");
+               printf("\nQual é o identificador do Registro?");
                fflush(stdin);
 			   scanf("%d", &pos);
                     if(buscarProduto(pos)){
-                     printf("\nConfirma a EXCLUSÃƒO do Registro [s/n]?");
+                     printf("\nConfirma a EXCLUSÃO do Registro [s/n]?");
                      fflush(stdin);
 					 scanf("%c", &confirma);
                           if(confirma=='s' || confirma == 'S'){
@@ -579,33 +557,33 @@ return resp;
 
 int menuAddProduto() {
     
-    int continua = VERD; // VERD Ã© uma constante que possui o valor 1
+    int continua = VERD; // VERD é uma constante que possui o valor 1
         char opcao;
     // menu principal
     do {
            printf("\n***************************************");
            printf("\nProduto");
-           printf("\ni - InclusÃ£o.");
-           printf("\na - AlteraÃ§Ã£o.");
-           printf("\ne - ExclusÃ£o.");
+           printf("\ni - Inclusão.");
+           printf("\na - Alteração.");
+           printf("\ne - Exclusão.");
            printf("\nl - Listar.");
            printf("\ns - Sair.");
-           printf("\nEscolha sua opÃ§Ã£o [i, a, e, l, s]:");
+           printf("\nEscolha sua opção [i, a, e, l, s]:");
 		   fflush(stdin);
            scanf("%c", &opcao);
 
 switch(opcao){
           case 'i' :
-          case 'I' : printf("***** InclusÃ£o *****");
+          case 'I' : printf("***** Inclusão *****");
           //incluirProduto();
                if(incluirProduto()){
-               printf("\nRegistro IncluÃ­do!");
+               printf("\nRegistro Incluído!");
               } else {
                printf("\nERRO ao Incluir Produto!");
                }
           break;
           case 'a' :
-          case 'A' : printf("***** AlteraÃ§Ã£o *****");
+          case 'A' : printf("***** Alteração *****");
               if(alterarProduto()){
               printf("\nRegistro Alterado!");
               } else {
@@ -614,9 +592,9 @@ switch(opcao){
           break;
 
           case 'e' :
-          case 'E' : printf("***** ExclusÃ£o *****");
+          case 'E' : printf("***** Exclusão *****");
                if(excluirProduto()){
-               printf("\nRegistro ExcluÃ­do!");
+               printf("\nRegistro Excluído!");
                } else {
                printf("\nERRO ao Excluir Produto!");
                }
@@ -632,311 +610,15 @@ switch(opcao){
           break;
 
           case 's' :
-          case 'S' : printf("***** SaÃ­da do Programa *****");
+          case 'S' : printf("***** Saída do Programa *****");
           continua = FALSO;
           break;
 
- default: printf("\nOpÃ§Ã£o invÃ¡lida!!!");
+ default: printf("\nOpção inválida!!!");
 
  }
 }while(continua);
 
-
 return 0;
 }
 
-float cadastroMeta()
-	{
-		//todos os textos dentro dos printf's e nomes de variÃ¡veis sÃ£o temporÃ¡rios
-		float meta, meta2=0, cons;
-		int mes, check, i=1;
-		//Escolher quantos meses;
-		printf("Gostaria de cadastrar o consumo de -3-, -6- ou -12- meses?\n>: ");
-		fflush(stdin);
-		scanf("%d", &mes);
-		switch (mes)
-		{
-			case 3:
-				do{
-					system("cls");
-					printf("-------------\nConsumo do mÃªs %d\n>:", i);
-					fflush(stdin);
-					scanf("%f",&cons);
-					consumo+=cons;
-					i++;
-				}while(i<=mes);
-				//Deixei as 2 formas de adicionar a meta, de acordo com a discussÃ£o que tivemos, a meta vai ser salva em % do valor original
-				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
-				fflush(stdin);
-				scanf("%d", &check);
-				if(check==1)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));//inteiro atraves da %
-					metaFinal = meta;
-					system("cls");
-					printf("-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", meta, meta2, mes);
-					break;
-				}
-				else if(check==2)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100; // porcentagem
-					meta2 = consumo - meta;
-					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
-					break;
-				}
-			case 6:
-				do{
-					system("cls");
-					printf("-------------\nConsumo do mÃªs %d\n>:", i);
-					fflush(stdin);
-					scanf("%f",&cons);
-					consumo+=cons;
-					i++;
-				}while(i<=mes);
-				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
-				fflush(stdin);
-				scanf("%d", &check);
-				if(check==1)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));
-					metaFinal = meta;
-					system("cls");
-					printf("-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", meta, meta2, mes);
-					break;
-				}
-				else if(check==2)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100;
-					meta2 = consumo - meta;
-					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
-					break;
-				}
-			case 12:
-				do{
-					system("cls");
-					printf("-------------\nConsumo do mÃªs %d\n>:", i);
-					fflush(stdin);
-					scanf("%f",&cons);
-					consumo+=cons;
-					i++;
-				}while(i<=mes);
-				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
-				fflush(stdin);
-				scanf("%d", &check);
-				if(check==1)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));
-					metaFinal = meta;
-					system("cls");
-					printf("-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", meta, meta2, mes);
-					break;
-				}
-				else if(check==2)
-				{
-					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
-					fflush(stdin);
-					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100;
-					meta2 = consumo - meta;
-					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, vocÃª deverÃ¡ consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
-					break;
-				}
-			default:
-               	printf("-------------\nDigite uma opÃ§Ã£o valida.\n-------------\n");
-               	cadastroMeta();
-               	break;
-				
-		}
-		printf("\nConsumo inicial>: %.2f kwatts", consumo);
-		printf("\nMeta Final>: %.2f%%", metaFinal);
-		system("pause");
-		return consumo;
-		return metaFinal;			
-	}
-		
-	
-float WEconomizado(int numCliente)
-    
-   
-   {
-   	     
-	     float watts, wattsEconom, tempo, Econom=0;
-	    
-	     printf("Quanto de consumo foi efetivado? ");
-	     scanf("%f", &wattsEconom);
-	     Econom = (consumo - wattsEconom)*100/consumo;     
-	     printf("VocÃª economizou..: %.2f%% de energia", Econom );
-	     if (Econom >= metaFinal)
-		{
-			printf("-------------\nAtingiu a meta de %.2f, ecomonizou %.2f", metaFinal, Econom);
-			if(metaFinal<=10)
-			{vetCliente[numCliente].pontos+=100;}
-			else if(metaFinal<=20)
-			{vetCliente[numCliente].pontos+=200;}
-			else if(metaFinal<=30)
-			{vetCliente[numCliente].pontos+=300;}
-			else if(metaFinal<=40)
-			{vetCliente[numCliente].pontos+=400;}
-
-		}
-		else if (Econom < metaFinal)
-		{
-			printf("-------------\nNao atingiu a meta de %.2f, ecomonizou apenas %.2f", metaFinal, Econom);
-
-		}
-		printf("\nPontos atuais: %d", vetCliente[numCliente].pontos);
-	     system("pause");
-   }
-void simConsumo (){
-	
-	int esc, i;
-	float watt, tempo, consumo=0;
-	printf("\nEscolha o nÃºmero de aparelhos que serÃ£o lanÃ§ados..:");
-	scanf("%d", &esc);
-	
-		for(i=0; i<esc; i++)
-		{	
-		printf("\nDigite a potencia em Watt do aparelho %d..:", (i+1));
-		scanf("%f", &watt);
-		printf("\nDigite o tempo em horas estimado em que o aparelho fica ligado por dia..:");
-		scanf("%f", &tempo);
-		consumo = consumo + ((watt/1000)*(tempo)*30);
-		}
-	printf("\nO consumo estimado para o mÃªs Ã©..: %.2f KWh", consumo );
-	system("pause");
-}
-
-void addProdCar(){
-
-    int IDprod, numProd; // produto
-    int numCarr; // carrinho
-    int quant;
-    char keepAdding;
-
-    do{
-        do{
-            system("cls");
-            printf("Digite 'e' para voltar ao menu inicial\n\n");
-            printf("ID do produto: ");
-            fflush(stdin);
-            while(scanf("%d", &IDprod) != 1 || IDprod < 1){
-                if(tolower(getchar()) == 'e') return;
-                printf("\nDigite uma opÃ§Ã£o valida...\n\n");
-                system("pause");
-                system("cls");
-                printf("ID do produto: ");
-                fflush(stdin);
-            }
-            for(numProd = 0; numProd < TAMANHO; numProd++)
-                if(vetProduto[numProd].id == IDprod) break;
-            
-            if(vetProduto[numProd].id != IDprod){
-                printf("\nEste ID de produto nÃ£o Ã© valido...\n\n");
-                system("pause");
-            }
-        }while(vetProduto[numProd].id != IDprod);
-
-        for(numCarr = 0; numCarr < TAMANHO; numCarr++)
-            if(carrinho[numCarr].info.id == 0 || carrinho[numCarr].info.id == IDprod) break;
-
-        if(numCarr == TAMANHO){
-            system("cls");
-            printf("O carrinho se encontra cheio por favor completar o pedido\n");
-            printf("ou remover um produto antes de adicionar outro\n\n");
-            system("pause");
-        }
-        else if(carrinho[numCarr].quantidade == 0){
-            system("cls");
-            printf("Caso nÃ£o deseje adicionar o produto coloque quantidade 0\n\n");
-            showProdInfo(numProd);
-            printf("Quantidade: ");
-            fflush(stdin);
-            while(scanf("%d", &quant) != 1 || quant < 0){
-                printf("\nDigite uma opÃ§Ã£o valida...\n\n");
-                system("pause");
-                system("cls");
-                showProdInfo(numProd);
-                printf("Quantidade: ");
-                fflush(stdin);
-            }
-            if(quant > 0){
-                carrinho[numCarr].info = vetProduto[numProd];
-                carrinho[numCarr].quantidade = quant;
-                carrinho[numCarr].valorTotal = carrinho[numCarr].quantidade*carrinho[numCarr].info.valor;
-            }
-        }
-        else{
-            system("cls");
-            showCarrSpotInfo(numCarr);
-            printf("Quantidade a adicionar: ");
-            fflush(stdin);
-            while(scanf("%d", &quant) != 1 || quant < 0){
-                printf("\nDigite uma opÃ§Ã£o valida...\n\n");
-                system("pause");
-                system("cls");
-                showCarrSpotInfo(numCarr);
-                printf("Quantidade: ");
-                fflush(stdin);
-            }
-            carrinho[numCarr].quantidade += quant;
-            carrinho[numCarr].valorTotal = carrinho[numCarr].quantidade*carrinho[numCarr].info.valor;
-        }
-
-        printf("\nDeseja adicionar mais produtos?(s/n) ");
-        fflush(stdin);
-        while(scanf("%c", &keepAdding) != 1 || (keepAdding != 's' && keepAdding != 'n')){
-            printf("\nDigite uma opÃ§Ã£o valida...\n\n");
-            system("pause");
-            system("cls");
-            printf("\nDeseja adicionar mais produtos?(s/n) ");
-            fflush(stdin);
-        }
-
-    }while(keepAdding == 's');
-
-    return;
-}
-void showCarrSpotInfo(int numCarr){
-    printf("ID do Produto: %d\n", carrinho[numCarr].info.id);
-    printf("Nome do Produto: %s\n", carrinho[numCarr].info.nome);
-    printf("Quantidade: %d\n", carrinho[numCarr].quantidade);
-    printf("Valor Total: %d * %.2f = %.2f\n\n", carrinho[numCarr].quantidade, carrinho[numCarr].info.valor, carrinho[numCarr].valorTotal);
-}
-void showProdInfo(int numProd){
-    printf("ID do Produto: %d\n", vetProduto[numProd].id);
-    printf("Nome do Produto: %s\n", vetProduto[numProd].nome);
-    printf("Valor do Produto: %d\n\n", vetProduto[numProd].valor);
-}
