@@ -193,17 +193,19 @@ void menuProvedor()
 	
 	    case 2:
 	        system("cls"); 
-	    	
+	    	menuAddProduto();
 	    	break;
 	    
 		case 3:
 			system("cls"); 
-	    	listarClientes();
+	    	listarCliente();
+	    	system("pause");
 	    	break;
 	    	
 	    case 4:
 	    	system("cls"); 
-	    	
+	    	listarProduto();
+	    	system("pause");
 	    	break;
 	    	
 	    case 0:
@@ -439,13 +441,13 @@ return resp;
        vetProduto[pos].id = pos;
        printf("\nCódigo..:");
        fflush(stdin);
-	   scanf("%d", vetProduto[pos].codigo); // não vai poder ter espaço no nome
+	   scanf("%d", &vetProduto[pos].codigo); // não vai poder ter espaço no nome
        printf("\nNome..:");
        fflush(stdin);
 	   scanf("%s", vetProduto[pos].nome);
        printf("\nQuantidade..:");
        fflush(stdin);
-	   scanf("%d", vetProduto[pos].qtd);
+	   scanf("%d", &vetProduto[pos].qtd);
        printf("\nValor..:");
        fflush(stdin);
 	   scanf("%d", &vetProduto[pos].valor);
