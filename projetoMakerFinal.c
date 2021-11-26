@@ -21,6 +21,8 @@ struct data{
     char telefone[20];
     char email[30];
     int pontos;
+    float metaFinal;
+    float consumo;
 } vetCliente[TAMANHO];
 
 struct produto{
@@ -54,7 +56,7 @@ int buscarCliente();
 int listarProduto();
 int inicializarProduto();
 int menuAddProduto();
-float cadastroMeta();
+float cadastroMeta(int numCliente);
 float WEconomizado(int numCliente);
 void clienteMenu();
 void verPontos(int numCliente);
@@ -156,7 +158,7 @@ void clienteMenu(){
             	simConsumo();
                 break;
             case 3:
-            	cadastroMeta();
+            	cadastroMeta(numCliente);
                 break;
             case 4:
             	WEconomizado(numCliente);
@@ -478,22 +480,27 @@ return resp;
 }
 
 //ListarProduto
-int listarProduto(){
+int listarProduto()
+{
    int resp = FALSO;
    int i;
-   for(i=0;i<TAMANHO; i++){
-        if(vetProduto[i].id != -1){
+   for(i=0;i<TAMANHO; i++)
+   {
+        if(vetProduto[i].id != -1)
+		{
                printf("\n***************************************");
                printf("\nIdentificador..: %d", vetProduto[i].id);
                printf("\nCódigo..: %d", vetProduto[i].codigo);
                printf("\nNome..: %s", vetProduto[i].nome);
                printf("\nQuantidade..: %d", vetProduto[i].qtd);
-               printf("\nValor..: %d", vetProduto[i].valor);
+               printf("\nValor..: %d\n", vetProduto[i].valor);
+               
 
-}
-}
-resp = VERD;
-return resp;
+		}
+	}
+	system("pause");
+	resp = VERD;
+	return resp;
 }
 
 // buscarProduto()
@@ -645,163 +652,165 @@ switch(opcao){
 return 0;
 }
 
-float cadastroMeta()
+float cadastroMeta(int numCliente)
 	{
 		//todos os textos dentro dos printf's e nomes de variáveis são temporários
 		float meta, meta2=0, cons;
 		int mes, check, i=1;
 		//Escolher quantos meses;
-		printf("Gostaria de cadastrar o consumo de -3-, -6- ou -12- meses?\n>: ");
+		system("cls");
+		printf("Gostaria de cadastrar o consumo de -3-, -6- ou -12- meses? -0- Cancelar\n>: ");
 		fflush(stdin);
 		scanf("%d", &mes);
 		switch (mes)
 		{
 			case 3:
 				do{
-					system("cls");
-					printf("-------------\nConsumo do mês %d\n>:", i);
+					printf("*************\nConsumo do mês %d\n>:", i);
 					fflush(stdin);
 					scanf("%f",&cons);
-					consumo+=cons;
+					vetCliente[numCliente].consumo+=cons;
 					i++;
 				}while(i<=mes);
 				//Deixei as 2 formas de adicionar a meta, de acordo com a discussão que tivemos, a meta vai ser salva em % do valor original
 				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
+				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("\n*************\nComo gostaria de estipular sua meta?");
+				printf("\n1- para usar Porcentagem");
+				printf("\n2- para usar Numero inteiro\n>: ");
 				fflush(stdin);
 				scanf("%d", &check);
 				if(check==1)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
+					printf("-*************\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));//inteiro atraves da %
-					metaFinal = meta;
+					meta2 = vetCliente[numCliente].consumo - (vetCliente[numCliente].consumo * (meta/100));//inteiro atraves da %
+					vetCliente[numCliente].metaFinal = meta;
 					system("cls");
-					printf("-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", meta, meta2, mes);
+					printf("*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", meta, meta2, mes);
 					break;
 				}
 				else if(check==2)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
+					printf("*************\nQuanto gostaria de economizar?(Inteiro)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100; // porcentagem
-					meta2 = consumo - meta;
+					vetCliente[numCliente].metaFinal = (meta/vetCliente[numCliente].consumo)*100; // porcentagem
+					meta2 = vetCliente[numCliente].consumo - meta;
 					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
+					printf("*************\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", vetCliente[numCliente].metaFinal, mes);
+					printf("\n*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", vetCliente[numCliente].metaFinal, meta2, mes);
 					break;
 				}
 			case 6:
 				do{
-					system("cls");
-					printf("-------------\nConsumo do mês %d\n>:", i);
+					printf("*************\nConsumo do mês %d\n>:", i);
 					fflush(stdin);
 					scanf("%f",&cons);
-					consumo+=cons;
+					vetCliente[numCliente].consumo+=cons;
 					i++;
 				}while(i<=mes);
 				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
+				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("\n*************\nComo gostaria de estipular sua meta?");
+				printf("\n1- para usar Porcentagem");
+				printf("\n2- para usar Numero inteiro\n>: ");
 				fflush(stdin);
 				scanf("%d", &check);
 				if(check==1)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
+					printf("*************\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));
-					metaFinal = meta;
+					meta2 = vetCliente[numCliente].consumo - (vetCliente[numCliente].consumo * (meta/100));
+					vetCliente[numCliente].metaFinal = meta;
 					system("cls");
-					printf("-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", meta, meta2, mes);
+					printf("*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", meta, meta2, mes);
 					break;
 				}
 				else if(check==2)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
+					printf("*************\nQuanto gostaria de economizar?(Inteiro)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100;
-					meta2 = consumo - meta;
+					vetCliente[numCliente].metaFinal = (meta/vetCliente[numCliente].consumo)*100;
+					meta2 = vetCliente[numCliente].consumo - meta;
 					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
+					printf("*************\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", vetCliente[numCliente].metaFinal, mes);
+					printf("\n*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", vetCliente[numCliente].metaFinal, meta2, mes);
 					break;
 				}
 			case 12:
 				do{
 					system("cls");
-					printf("-------------\nConsumo do mês %d\n>:", i);
+					printf("*************\nConsumo do mês %d\n>:", i);
 					fflush(stdin);
 					scanf("%f",&cons);
-					consumo+=cons;
+					vetCliente[numCliente].consumo+=cons;
 					i++;
 				}while(i<=mes);
 				system("cls");
-				printf("-------------\nConsumo total nos %d meses>: %.2f kwatts", mes, consumo);
-				printf("\n-------------\nComo gostaria de estipular sua meta? -1- para usar Porcentagem, -2- para usar Numero inteiro\n>: ");
+				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("\n*************\nComo gostaria de estipular sua meta?");
+				printf("\n1- para usar Porcentagem");
+				printf("\n2- para usar Numero inteiro\n>: ");
 				fflush(stdin);
 				scanf("%d", &check);
 				if(check==1)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
+					printf("*************\nQuanto gostaria de economizar?(Porcentagem)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					meta2 = consumo - (consumo * (meta/100));
-					metaFinal = meta;
+					meta2 = vetCliente[numCliente].consumo - (vetCliente[numCliente].consumo * (meta/100));
+					vetCliente[numCliente].metaFinal = meta;
 					system("cls");
-					printf("-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", meta, meta2, mes);
+					printf("*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", meta, meta2, mes);
 					break;
 				}
 				else if(check==2)
 				{
 					system("cls");
-					printf("-------------\nQuanto gostaria de economizar?(Inteiro)\n>: ");
+					printf("*************\nQuanto gostaria de economizar?(Inteiro)\n>: ");
 					fflush(stdin);
 					scanf("%f", &meta);
-					metaFinal = (meta/consumo)*100;
-					meta2 = consumo - meta;
+					vetCliente[numCliente].metaFinal = (meta/vetCliente[numCliente].consumo)*100;
+					meta2 = vetCliente[numCliente].consumo - meta;
 					system("cls");
-					printf("-------------\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", metaFinal, mes);
-					printf("\n-------------\nPara economizar %.2f%%, você deverá consumir %.2f kwatts em %d meses.", metaFinal, meta2, mes);
+					printf("*************\nQuer economizar %.2f%% de seu consumo anterior em %d meses.", vetCliente[numCliente].metaFinal, mes);
+					printf("\n*************\nPara economizar %.2f%%, você deverá consumir até %.2f kwatts em %d meses.", vetCliente[numCliente].metaFinal, meta2, mes);
 					break;
 				}
+			case 0:
+				return;
 			default:
-               	printf("-------------\nDigite uma opção valida.\n-------------\n");
-               	cadastroMeta();
+               	printf("*************\nDigite uma opção valida.\n*************\n");
+               	cadastroMeta(numCliente);
                	break;
 				
 		}
-		printf("\nConsumo inicial>: %.2f kwatts", consumo);
-		printf("\nMeta Final>: %.2f%%", metaFinal);
-		system("pause");
-		return consumo;
-		return metaFinal;			
+		printf("\nConsumo inicial>: %.2f kwatts", vetCliente[numCliente].consumo);
+		printf("\nMeta Final>: %.2f%%\n", vetCliente[numCliente].metaFinal);
+		system("pause");		
 	}
 		
 	
 float WEconomizado(int numCliente)
-    
-   
    {
-   	     
 	     float watts, wattsEconom, tempo, Econom=0;
 	    
 	     printf("Quanto de consumo foi efetivado? ");
 	     scanf("%f", &wattsEconom);
-	     Econom = (consumo - wattsEconom)*100/consumo;     
+	     Econom = (vetCliente[numCliente].consumo - wattsEconom)*100/vetCliente[numCliente].consumo;     
 	     printf("Você economizou..: %.2f%% de energia", Econom );
-	     if (Econom >= metaFinal)
+	     if (Econom >= vetCliente[numCliente].metaFinal)
 		{
-			printf("-------------\nAtingiu a meta de %.2f, ecomonizou %.2f", metaFinal, Econom);
+			printf("\n*************\nAtingiu a meta de %.2f, economizou %.2f", vetCliente[numCliente].metaFinal, Econom);
 			if(metaFinal<=10)
 			{vetCliente[numCliente].pontos+=100;}
 			else if(metaFinal<=20)
@@ -812,12 +821,12 @@ float WEconomizado(int numCliente)
 			{vetCliente[numCliente].pontos+=400;}
 
 		}
-		else if (Econom < metaFinal)
+		else if (Econom < vetCliente[numCliente].metaFinal)
 		{
-			printf("-------------\nNao atingiu a meta de %.2f, ecomonizou apenas %.2f", metaFinal, Econom);
+			printf("\n*************\nNao atingiu a meta de %.2f, ecomonizou apenas %.2f", vetCliente[numCliente].metaFinal, Econom);
 
 		}
-		printf("\nPontos atuais: %d", vetCliente[numCliente].pontos);
+		printf("\nPontos atuais: %d\n", vetCliente[numCliente].pontos);
 	     system("pause");
    }
 void simConsumo (){
@@ -835,7 +844,7 @@ void simConsumo (){
 		scanf("%f", &tempo);
 		consumo = consumo + ((watt/1000)*(tempo)*30);
 		}
-	printf("\nO consumo estimado para o mês é..: %.2f KWh", consumo );
+	printf("\nO consumo estimado para o mês é..: %.2f KWh\n", consumo );
 	system("pause");
 }
 
@@ -849,7 +858,7 @@ void addProdCar(){
     do{
         do{
             system("cls");
-            printf("Digite 'e' para voltar ao menu inicial\n\n");
+            printf("Digite 'e' para voltar ao menu inicial\n\n"); 
             printf("ID do produto: ");
             fflush(stdin);
             while(scanf("%d", &IDprod) != 1 || IDprod < 1){
@@ -933,7 +942,7 @@ void showCarrSpotInfo(int numCarr){
     printf("ID do Produto: %d\n", carrinho[numCarr].info.id);
     printf("Nome do Produto: %s\n", carrinho[numCarr].info.nome);
     printf("Quantidade: %d\n", carrinho[numCarr].quantidade);
-    printf("Valor Total: %d * %.2f = %.2f\n\n", carrinho[numCarr].quantidade, carrinho[numCarr].info.valor, carrinho[numCarr].valorTotal);
+    printf("Valor Total: %d * %d = %d\n\n", carrinho[numCarr].quantidade, carrinho[numCarr].info.valor, carrinho[numCarr].valorTotal);
 }
 void showProdInfo(int numProd){
     printf("ID do Produto: %d\n", vetProduto[numProd].id);
