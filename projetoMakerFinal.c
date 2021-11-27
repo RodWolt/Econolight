@@ -37,7 +37,7 @@ struct produto{
 typedef struct{
     struct produto info;
     int quantidade;
-    float valorTotal;
+    int valorTotal;
 } Loja;
 
 
@@ -63,6 +63,9 @@ void verPontos(int numCliente);
 void menuAddCliente();
 void simConsumo ();
 void addProdCar();
+void remProdCar();
+void inicializarCarr();
+void listCarr();
 void showCarrSpotInfo(int numCarr);
 void showProdInfo(int numProd);
 UINT CPAGE_DEFAULT;
@@ -77,7 +80,8 @@ int main(){
 
     //startUpCarr();
     //startUpProd();
-    //startUpClientes();    
+    //startUpClientes(); 
+	inicializarCarr();   
 	inicializarCliente();
 	inicializarProduto();
 // Começo do programa
@@ -167,7 +171,7 @@ void clienteMenu(){
             	listarProduto();
                 break;
             case 6:
-            	addProdCar();
+            	menuCarrinho();
                 break;
             case 7:
                 break;
@@ -673,8 +677,9 @@ float cadastroMeta(int numCliente)
 					i++;
 				}while(i<=mes);
 				//Deixei as 2 formas de adicionar a meta, de acordo com a discussão que tivemos, a meta vai ser salva em % do valor original
+				vetCliente[numCliente].consumo = (vetCliente[numCliente].consumo/mes);
 				system("cls");
-				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("*************\nConsumo médio nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
 				printf("\n*************\nComo gostaria de estipular sua meta?");
 				printf("\n1- para usar Porcentagem");
 				printf("\n2- para usar Numero inteiro\n>: ");
@@ -714,7 +719,7 @@ float cadastroMeta(int numCliente)
 					i++;
 				}while(i<=mes);
 				system("cls");
-				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("*************\nConsumo médio nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
 				printf("\n*************\nComo gostaria de estipular sua meta?");
 				printf("\n1- para usar Porcentagem");
 				printf("\n2- para usar Numero inteiro\n>: ");
@@ -755,7 +760,7 @@ float cadastroMeta(int numCliente)
 					i++;
 				}while(i<=mes);
 				system("cls");
-				printf("*************\nConsumo total nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
+				printf("*************\nConsumo médio nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
 				printf("\n*************\nComo gostaria de estipular sua meta?");
 				printf("\n1- para usar Porcentagem");
 				printf("\n2- para usar Numero inteiro\n>: ");
@@ -811,15 +816,14 @@ float WEconomizado(int numCliente)
 	     if (Econom >= vetCliente[numCliente].metaFinal)
 		{
 			printf("\n*************\nAtingiu a meta de %.2f, economizou %.2f", vetCliente[numCliente].metaFinal, Econom);
-			if(metaFinal<=10)
+			if(metaFinal<=5)
 			{vetCliente[numCliente].pontos+=100;}
-			else if(metaFinal<=20)
+			else if(metaFinal<=10)
 			{vetCliente[numCliente].pontos+=200;}
-			else if(metaFinal<=30)
+			else if(metaFinal<=15)
 			{vetCliente[numCliente].pontos+=300;}
-			else if(metaFinal<=40)
+			else if(metaFinal<=20)
 			{vetCliente[numCliente].pontos+=400;}
-
 		}
 		else if (Econom < vetCliente[numCliente].metaFinal)
 		{
@@ -861,7 +865,7 @@ void addProdCar(){
             printf("Digite 'e' para voltar ao menu inicial\n\n"); 
             printf("ID do produto: ");
             fflush(stdin);
-            while(scanf("%d", &IDprod) != 1 || IDprod < 1){
+            while(scanf("%d", &IDprod) != 1 || IDprod < 0){
                 if(tolower(getchar()) == 'e') return;
                 printf("\nDigite uma opção valida...\n\n");
                 system("pause");
@@ -879,7 +883,7 @@ void addProdCar(){
         }while(vetProduto[numProd].id != IDprod);
 
         for(numCarr = 0; numCarr < TAMANHO; numCarr++)
-            if(carrinho[numCarr].info.id == 0 || carrinho[numCarr].info.id == IDprod) break;
+            if(carrinho[numCarr].info.id == -1 || carrinho[numCarr].info.id == IDprod) break;
 
         if(numCarr == TAMANHO){
             system("cls");
@@ -948,4 +952,143 @@ void showProdInfo(int numProd){
     printf("ID do Produto: %d\n", vetProduto[numProd].id);
     printf("Nome do Produto: %s\n", vetProduto[numProd].nome);
     printf("Valor do Produto: %d\n\n", vetProduto[numProd].valor);
+}
+void inicializarCarr()
+{
+  int i;
+    for(i=0;i<TAMANHO; i++) 
+          {
+           carrinho[i].info.id = -1;
+          }
+}
+int menuCarrinho()
+{
+	int op;
+	 while(1){
+        system("cls");
+        printf("O que deseja fazer?\n");
+        printf("1 - Adicionar Produtos ao Carrinho\n");
+        printf("2 - Retirar Produtos ao Carrinho\n");
+        printf("3 - Mostrar carrinho\n");
+        printf("0 - Sair do carrinho\n");
+        printf("Opção: ");
+        fflush(stdin);
+        scanf("%d", &op);
+
+        switch(op){
+            case 1:
+                addProdCar();
+                break;
+            case 2:
+                remProdCar();
+                break;
+            case 3:
+                listCarr();
+                break;
+            case 0:
+                return;
+            default:
+                printf("Digite uma opção valida...\n");
+                system("pause");
+                system("cls");
+        }
+    }
+
+    return 0;    
+}
+
+void remProdCar(){
+    int IDprod, quant;
+    int numCarr;
+    char keepRemoving;
+
+    do{
+        if(carrinho[0].info.id == -1){
+            system("cls");
+            printf("O carrinho já se encontra vazio\n\n");
+            system("pause");
+            return;
+        }
+
+        do{
+            system("cls");
+            printf("Digite 'e' para voltar ao menu inicial\n\n");
+            printf("ID do produto: ");
+            fflush(stdin);
+            while(scanf("%d", &IDprod) != 1 || IDprod < 0){
+                if(tolower(getchar()) == 'e') return;
+                printf("\nDigite uma opção valida...\n\n");
+                system("pause");
+                system("cls");
+                printf("ID do produto: ");
+                fflush(stdin);
+            }
+            
+            for(numCarr = 0; numCarr < TAMANHO-1; numCarr++)
+                if(carrinho[numCarr].info.id == IDprod) break;
+            
+            if(carrinho[numCarr].info.id != IDprod){
+                printf("\nEste ID de produto não é valido ou não se encontra no carrinho...\n\n");
+                system("pause");
+            }
+        }while(carrinho[numCarr].info.id != IDprod);
+
+        system("cls");
+        printf("Caso deseje remover o produto todo digite um valor negativo ou uma quantidade maior ou igual\n");
+        showCarrSpotInfo(numCarr);
+        printf("Quantidade que deseja remover: ");
+        fflush(stdin);
+        while(scanf("%d", &quant) != 1){
+            printf("\nDigite uma opção valida...\n\n");
+            system("pause");
+            system("cls");
+            printf("Caso deseje remover o produto todo digite um valor negativo ou uma quantidade maior ou igual\n");
+            showCarrSpotInfo(numCarr);
+            printf("Quantidade que deseja remover: ");
+            fflush(stdin);
+        }
+
+        if(quant < 0 || quant >= carrinho[numCarr].quantidade)
+            carrinho[numCarr].info.id = -1;
+        else{
+            carrinho[numCarr].quantidade -= quant;
+            carrinho[numCarr].valorTotal = carrinho[numCarr].quantidade*carrinho[numCarr].info.valor;
+        }
+
+        for(; numCarr < TAMANHO-1; numCarr++){
+            if(carrinho[numCarr].info.id == -1 && carrinho[numCarr+1].info.id != -1){
+                carrinho[numCarr] = carrinho[numCarr+1];
+                carrinho[numCarr+1].info.id = -1;
+            }
+        }
+
+        printf("\nDeseja retirar mais produtos?(s/n) ");
+        fflush(stdin);
+        while(scanf("%c", &keepRemoving) != 1 || (keepRemoving != 's' && keepRemoving != 'n')){
+            printf("\nDigite uma opção valida...\n\n");
+            system("pause");
+            system("cls");
+            printf("\nDeseja retirar mais produtos?(s/n) ");
+            fflush(stdin);
+        }
+
+    }while(keepRemoving == 's');
+
+    return;
+}
+void listCarr(){
+    int numCarr; // carrinho
+    int valorFinal = 0;
+
+    system("cls");
+    for(numCarr = 0; numCarr < TAMANHO; numCarr++){
+        if(carrinho[numCarr].info.id == -1) break;
+        printf("ID do Produto: %d\n", carrinho[numCarr].info.id);
+        printf("Nome do Produto: %s\n", carrinho[numCarr].info.nome);
+        printf("Valor Total: %d * %d = %d\n\n", carrinho[numCarr].quantidade, carrinho[numCarr].info.valor, carrinho[numCarr].valorTotal);
+        valorFinal += carrinho[numCarr].valorTotal;
+    }
+    printf("Valor total do carrinho: %d\n\n", valorFinal);
+    system("pause");
+    return;
 }
