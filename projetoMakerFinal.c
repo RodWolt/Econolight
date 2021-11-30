@@ -106,10 +106,10 @@ UINT CPAGE_DEFAULT;
 int main(){
     setlocale(LC_ALL,"Portuguese");
     int typeProgram;
-	telaInc();
-	system("pause");
-	inicializarCliente();
-	inicializarProduto();
+    telaInc();
+    system("pause");
+    inicializarCliente();
+    inicializarProduto();
     inicializarCarr();
     vetCliente[0].id = 123;
     vetCliente[0].pontos = 1000;
@@ -1199,10 +1199,9 @@ void telaInc(){
     	printf("\n|                                                                                                                   |");
 	printf("\n=====================================================================================================================");
     	printf("\n|                                                                                                                   |");
-	printf("\n|            COPYRIGHT - Guilherme Quirino / Rafael Gasparini / Rodolpho Ribeiro / Thiago Santa'Anna                |");	
+	printf("\n|            COPYRIGHT - Guilherme Quirino / Rafael Gasparini / Rodolpho Ribeiro / Thiago Sant'Anna                 |");	
 	printf("\n|                                                                                                                   |");
 	printf("\n|                                           VERSÃO 1.0    				                            |");
 	printf("\n|                                                                                                                   |");
 	printf("\n=====================================================================================================================\n");
-}
 }
