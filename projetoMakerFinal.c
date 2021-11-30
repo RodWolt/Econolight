@@ -106,7 +106,8 @@ UINT CPAGE_DEFAULT;
 int main(){
     setlocale(LC_ALL,"Portuguese");
     int typeProgram;
-
+	void telaInc();
+	system('pause");
 	inicializarCliente();
 	inicializarProduto();
     inicializarCarr();
