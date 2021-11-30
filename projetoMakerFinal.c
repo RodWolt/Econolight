@@ -106,8 +106,8 @@ UINT CPAGE_DEFAULT;
 int main(){
     setlocale(LC_ALL,"Portuguese");
     int typeProgram;
-	void telaInc();
-	system('pause");
+	telaInc();
+	system("pause");
 	inicializarCliente();
 	inicializarProduto();
     inicializarCarr();
@@ -1184,7 +1184,6 @@ void emptyCarr(){
     return;
 }
 
-}
 
 void telaInc(){
 	
@@ -1205,4 +1204,5 @@ void telaInc(){
 	printf("\n|                                           VERSÃO 1.0    				                            |");
 	printf("\n|                                                                                                                   |");
 	printf("\n=====================================================================================================================\n");
+}
 }
