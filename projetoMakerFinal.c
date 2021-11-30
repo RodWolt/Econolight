@@ -314,6 +314,7 @@ float cadastroMeta(int numCliente)
                 vetCliente[numCliente].consumo+=cons;
                 i++;
             }while(i<=mes);
+	    vetCliente[numCliente].consumo = (vetCliente[numCliente].consumo/mes);
             system("cls");
             printf("\nConsumo médio nos %d meses..: %.2f kwatts", mes, vetCliente[numCliente].consumo);
             printf("\n\nComo gostaria de estipular sua meta?");
@@ -355,6 +356,7 @@ float cadastroMeta(int numCliente)
                 vetCliente[numCliente].consumo+=cons;
                 i++;
             }while(i<=mes);
+	    vetCliente[numCliente].consumo = (vetCliente[numCliente].consumo/mes);
             system("cls");
             printf("\nConsumo médio nos %d meses>: %.2f kwatts", mes, vetCliente[numCliente].consumo);
             printf("\nComo gostaria de estipular sua meta?");
