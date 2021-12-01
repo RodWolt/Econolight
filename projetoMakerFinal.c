@@ -431,7 +431,7 @@ float WEconomizado(int numCliente)
 	}
 	else if (wattsEconom < vetCliente[numCliente].consumo)
 	{
-		if (Econom >= vetCliente[numCliente].metaFinal)
+		if (Econom <= vetCliente[numCliente].metaFinal)
     	{
     		Econom = (vetCliente[numCliente].consumo - wattsEconom)*100/vetCliente[numCliente].consumo;     
         	printf("\nParabéns, você atingiu a meta de %.2f%%, economizou %.2f%%!", vetCliente[numCliente].metaFinal, Econom);
@@ -444,7 +444,7 @@ float WEconomizado(int numCliente)
         	else if(vetCliente[numCliente].metaFinal<=20)
         	{vetCliente[numCliente].pontos+=400;}
     	}
-    	else if (Econom < vetCliente[numCliente].metaFinal)
+    	else if (Econom > vetCliente[numCliente].metaFinal)
     	{
         	printf("\nParabéns, você conseguiu economizar, porém não atingiu a sua meta de economia de %.2f%%.", vetCliente[numCliente].metaFinal, Econom);
     	}
@@ -456,13 +456,17 @@ float WEconomizado(int numCliente)
 void efetivarCompra(int numCliente){
     int valorFinal = listCarr();
     if(valorFinal > vetCliente[numCliente].pontos)
+	{
         printf("Compra não pode ser efetivada pois a quantidade de pontos é inferior a necessaria\n");
+        system("pause");
+	}
     else{
         printf("A compra no valor de %d foi efetuada\n", valorFinal);
         printf("Pontos %d - Valor da compra %d",vetCliente[numCliente].pontos, valorFinal);
         vetCliente[numCliente].pontos -= valorFinal;
-        printf(" = %d", vetCliente[numCliente].pontos);
+        printf(" = %d\n", vetCliente[numCliente].pontos);
         inicializarCarr();
+        system("pause");
     }
     return;
 }
@@ -493,13 +497,11 @@ void menuProvedor()
             case 3:
                 system("cls"); 
                 listarCliente();
-                system("pause");
                 break;
                 
             case 4:
                 system("cls"); 
                 listarProduto();
-                system("pause");
                 break;
                 
             case 0:
@@ -1107,8 +1109,10 @@ int listarCliente(){
             printf("\nTelefone..: %s", vetCliente[i].telefone);
             printf("\nEmail..: %s", vetCliente[i].email);
             printf("\nPontos..: %d\n\n", vetCliente[i].pontos);
+            
         }
     }
+    system("pause");
     resp = VERD;
     return resp;
 }
