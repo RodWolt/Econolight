@@ -51,7 +51,7 @@ Loja carrinho[TAMANHO];
     void clienteMenu();
 
 // Funções do Menu Cliente
-    void verPontos(int numCliente);
+    void verInfo(int numCliente);
     void simConsumo();
     float cadastroMeta(int numCliente);
     float WEconomizado(int numCliente);
@@ -111,12 +111,20 @@ int main(){
     inicializarCliente();
     inicializarProduto();
     inicializarCarr();
+
+    /*strcpy(vetCliente[0].nome, "teste");
+    strcpy(vetCliente[0].sobrenome, "teste");
+    vetCliente[0].dataNasc.dia = 1;
+    vetCliente[0].dataNasc.mes = 1;
+    vetCliente[0].dataNasc.ano = 1;
+    strcpy(vetCliente[0].telefone, "22 2222-2222");
+    strcpy(vetCliente[0].email, "totallylegit@mail.ck");
     vetCliente[0].id = 123;
     vetCliente[0].pontos = 1000;
     vetProduto[0].id = 0;
     vetProduto[0].valor = 100;
     vetProduto[0].qtd = 20;
-    strcpy(vetProduto[0].nome, "Bola");
+    strcpy(vetProduto[0].nome, "Bola");*/ // Utilizado para testes
 
 // Começo do programa
 
@@ -178,7 +186,7 @@ void clienteMenu(){
     while(1){
         system("cls");
         printf("O que deseja fazer?\n");
-        printf("1 - Ver Pontos\n");
+        printf("1 - Ver suas informações\n");
         printf("2 - Simulação de consumo\n");
         printf("3 - Informar meta energetica\n");
         printf("4 - Informar Watts economizados\n");
@@ -194,7 +202,7 @@ void clienteMenu(){
 
         switch(op){
             case 1:
-                verPontos(numCliente);
+                verInfo(numCliente);
                 break;
             case 2:
             	simConsumo();
@@ -228,8 +236,12 @@ void clienteMenu(){
     }
 }
 
-void verPontos(int numCliente){
+void verInfo(int numCliente){
     system("cls");
+    printf("Nome e sobrenome..: %s %s\n", vetCliente[numCliente].nome, vetCliente[numCliente].sobrenome);
+    printf("Data de Nascimento..: %02d/%02d/%04d\n", vetCliente[numCliente].dataNasc.dia, vetCliente[numCliente].dataNasc.mes, vetCliente[numCliente].dataNasc.dia);
+    printf("Telefone..: %s\n", vetCliente[numCliente].telefone);
+    printf("E-Mail..: %s\n", vetCliente[numCliente].email);
     printf("Pontos registrados..: %d\n\n", vetCliente[numCliente].pontos);
     system("pause");
 }
@@ -461,8 +473,8 @@ void menuProvedor()
 	while (1){
         system("cls");
         printf("Sistemas\n\n");
-        printf("1- Adicionar clientes\n");
-        printf("2- Adicionar produtos\n");
+        printf("1- Adicionar/Editar clientes\n");
+        printf("2- Adicionar/Editar produtos\n");
         printf("3- Ver lista de clientes\n");
         printf("4- Ver lista de produtos\n");
         printf("0- Voltar ao menu inicial\n");
