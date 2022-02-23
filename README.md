@@ -28,7 +28,5 @@ Basta adicionar os produtos em quantidade desejada ao carrinho e efetuar a compr
 ![ECONOLIGHTCompraEfetuada](https://user-images.githubusercontent.com/48632799/155260910-283a236e-02e4-4245-8226-2e42b269fe79.png)
 
 ### Para uso
-Nesse repo deixamos muitos arquivos porque montamos nossas funções aos poucos, separadamente, para melhor organização e aprendizagem.
-
 Caso queira testar nosso protótipo, basta baixar o executável Econolight acima, ou clicando [aqui](https://github.com/RodWolt/ProjetoMakerUVA/raw/PatchFinal/Econolight.exe).
 Você pode também ver nosso código fonte no arquivo [projetoMakerFinal.c](https://github.com/RodWolt/ProjetoMakerUVA/blob/PatchFinal/projetoMakerFinal.c), na branch PatchFinal.
